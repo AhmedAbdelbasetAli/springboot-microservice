@@ -23,6 +23,7 @@
             "request": "launch",
             "mainClass": "net.AhmedAli.employeeservice.EmployeeServiceApplication",
             "projectName": "employee-service"
-        }
+        },
+        
     ]
 }
