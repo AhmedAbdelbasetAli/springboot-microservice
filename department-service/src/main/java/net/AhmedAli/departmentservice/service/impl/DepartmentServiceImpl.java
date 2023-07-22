@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import net.AhmedAli.departmentservice.dto.DepartmentDto;
 import net.AhmedAli.departmentservice.entity.Department;
+import net.AhmedAli.departmentservice.mapper.DepartmentMapper;
 import net.AhmedAli.departmentservice.repository.DepartmentRepository;
 import net.AhmedAli.departmentservice.service.DepartmentService;
 
@@ -16,23 +17,15 @@ public class DepartmentServiceImpl  implements DepartmentService{
 
     @Override
     public DepartmentDto saveDepartment(DepartmentDto departmentDto) {
-       // convert department dto to department jpa entity
-       Department department = new Department(
-            departmentDto.getId(),
-            departmentDto.getDepartmentName(),
-            departmentDto.getDepartmentDescription(),
-            departmentDto.getDepartmentCode()
-       );
 
-       Department savedDepartment= departmentRepository.save(department);
+        // convert department dto to department jpa entity
+        Department department = DepartmentMapper.mapToDepartment(departmentDto);
 
-       DepartmentDto savedDepartmentDto = new DepartmentDto(
-           savedDepartment.getId(),
-           savedDepartment.getDepartmentName(),
-           savedDepartment.getDepartmentDescription(),
-           savedDepartment.getDepartmentCode()
-       );
-       return savedDepartmentDto;
+        Department savedDepartment = departmentRepository.save(department);
+
+        DepartmentDto savedDepartmentDto = DepartmentMapper.mapToDepartmentDto(savedDepartment);
+
+        return savedDepartmentDto;
     }
 
     @Override
@@ -40,12 +33,7 @@ public class DepartmentServiceImpl  implements DepartmentService{
 
         Department department = departmentRepository.findByDepartmentCode(departmentCode);
 
-        DepartmentDto departmentDto = new DepartmentDto(
-                department.getId(),
-                department.getDepartmentName(),
-                department.getDepartmentDescription(),
-                department.getDepartmentCode()
-        );
+        DepartmentDto departmentDto = DepartmentMapper.mapToDepartmentDto(department);
 
         return departmentDto;
     }

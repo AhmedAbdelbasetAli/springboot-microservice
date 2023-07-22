@@ -19,7 +19,7 @@ import net.AhmedAli.employeeservice.service.EmployeeService;
 @RequestMapping("api/employees")
 public class EmployeeController {
     
-     private EmployeeService employeeService;
+    private EmployeeService employeeService;
 
     // Build Save Employee REST API
     @PostMapping
@@ -28,9 +28,10 @@ public class EmployeeController {
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
 
+    // Build Get Employee REST API
     @GetMapping("{id}")
     public ResponseEntity<APIResponseDto> getEmployee(@PathVariable("id") Long employeeId){
-        APIResponseDto apiResponseDto = employeeService.gEmployeeDtoById(employeeId);
+        APIResponseDto apiResponseDto = employeeService.getEmployeeById(employeeId);
         return new ResponseEntity<>(apiResponseDto, HttpStatus.OK);
     }
 }
